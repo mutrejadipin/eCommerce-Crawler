@@ -8,77 +8,140 @@ import (
 	"math/rand"
 	"os"
 	"regexp"
+	//"strconv"
 	"sync"
 	"time"
 
 	"github.com/chromedp/chromedp"
+	"github.com/joho/godotenv"
 	"github.com/redis/go-redis/v9"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
-// Redis client for duplicate URL handling
-var redisClient = redis.NewClient(&redis.Options{Addr: "localhost:6379"})
+// --- Constants ---
+const (
+	redisExpiry     = 24 * time.Hour
+	crawlTimeout    = 30 * time.Second
+	scrollAttempts  = 5
+	pageLoadDelay   = 2 * time.Second
+)
 
-// PostgreSQL database instance
-var db *gorm.DB
+// --- Global Variables ---
+var (
+	db          *gorm.DB
+	redisClient *redis.Client
+)
 
-// Proxy server for avoiding IP bans
-var proxyServer = "http://your-proxy-server:port"
+// --- Regex Pattern for Product URLs ---
+var productURLPattern = regexp.MustCompile(`/(dp|gp/product|product|item|shop|p)/[a-zA-Z0-9-_]+(/|\?|$)`)
 
-// Product URL regex pattern
-var ProductURLRegex = regexp.MustCompile(`/(dp|gp/product|product|item|shop|p)/[a-zA-Z0-9-_]+(/|\?|$)`)
-
-// Struct to store product URLs in PostgreSQL
+// --- Database Model ---
 type ProductURL struct {
 	ID     uint   `gorm:"primaryKey"`
 	Domain string `gorm:"index"`
 	URL    string `gorm:"unique"`
 }
 
-// Struct for JSON output
+// --- Crawl Result Struct ---
 type CrawlResult struct {
 	Domain string   `json:"domain"`
 	URLs   []string `json:"urls"`
 }
 
-// Initialize PostgreSQL database
-func initDB() {
-	var err error
-	dsn := "host=localhost user=postgres password=yourpassword dbname=crawler sslmode=disable"
-	db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
+// --- Load Environment Variables ---
+func loadEnv() {
+	err := godotenv.Load(".env")
 	if err != nil {
-		log.Fatal("Failed to connect to DB:", err)
+		log.Fatal("Error loading .env file")
 	}
-	db.AutoMigrate(&ProductURL{}) // Auto-create table
 }
 
-// Check if a URL is already visited (Redis)
+// --- Initialize PostgreSQL Connection ---
+func initDB() {
+	loadEnv() // Load env variables
+
+	dbHost := os.Getenv("DB_HOST")
+	dbUser := os.Getenv("DB_USER")
+	dbPassword := os.Getenv("DB_PASSWORD")
+	dbName := os.Getenv("DB_NAME")
+	dbPort := os.Getenv("DB_PORT")
+
+	if dbHost == "" || dbUser == "" || dbPassword == "" || dbName == "" || dbPort == "" {
+		log.Fatal("Database credentials are missing in .env file")
+	}
+
+	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable",
+		dbHost, dbUser, dbPassword, dbName, dbPort)
+
+	var err error
+	db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	if err != nil {
+		log.Fatalf("Database connection failed: %v", err)
+	}
+
+	// Configure connection pooling
+	sqlDB, err := db.DB()
+	if err != nil {
+		log.Fatalf("Failed to configure DB connection pool: %v", err)
+	}
+	sqlDB.SetMaxOpenConns(20) // Max 20 concurrent connections
+	sqlDB.SetMaxIdleConns(10) // Keep 10 idle connections
+	sqlDB.SetConnMaxLifetime(30 * time.Minute)
+
+	// Auto-create table
+	db.AutoMigrate(&ProductURL{})
+	log.Println("Database initialized successfully")
+}
+
+// --- Initialize Redis Client ---
+func initRedis() {
+	redisAddr := os.Getenv("REDIS_ADDR")
+	if redisAddr == "" {
+		log.Fatal("REDIS_ADDR is missing in .env file")
+	}
+
+	redisClient = redis.NewClient(&redis.Options{Addr: redisAddr})
+	_, err := redisClient.Ping(context.Background()).Result()
+	if err != nil {
+		log.Fatalf("Failed to connect to Redis: %v", err)
+	}
+
+	log.Println("Redis connected successfully")
+}
+
+// --- Check if URL is Already Visited (Redis) ---
 func isURLVisited(url string) bool {
-	exists, _ := redisClient.Exists(context.Background(), url).Result()
+	exists, err := redisClient.Exists(context.Background(), url).Result()
+	if err != nil {
+		log.Printf("Redis error: %v", err)
+		return false
+	}
 	return exists > 0
 }
 
-// Mark a URL as visited in Redis
+// --- Mark URL as Visited (Redis) ---
 func markURLVisited(url string) {
-	redisClient.Set(context.Background(), url, 1, 24*time.Hour) // Store for 24 hours
+	if err := redisClient.Set(context.Background(), url, 1, redisExpiry).Err(); err != nil {
+		log.Printf("Failed to mark URL as visited: %v", err)
+	}
 }
 
-// Function to handle infinite scrolling
-func infiniteScroll(ctx context.Context) {
-	for i := 0; i < 5; i++ {
+// --- Handle Infinite Scrolling ---
+func performInfiniteScroll(ctx context.Context) {
+	for i := 0; i < scrollAttempts; i++ {
 		err := chromedp.Run(ctx,
 			chromedp.Evaluate(`window.scrollBy(0, document.body.scrollHeight)`, nil),
-			chromedp.Sleep(time.Duration(rand.Intn(3)+2)*time.Second),
+			chromedp.Sleep(time.Duration(rand.Intn(3)+2)*time.Second), // Random delay to mimic human behavior
 		)
 		if err != nil {
-			log.Println("Scrolling error:", err)
+			log.Printf("Scrolling error: %v", err)
 			return
 		}
 	}
 }
 
-// Function to handle pagination
+// --- Handle Pagination ---
 func clickNextPage(ctx context.Context) bool {
 	var nextExists bool
 	err := chromedp.Run(ctx,
@@ -90,130 +153,115 @@ func clickNextPage(ctx context.Context) bool {
 
 	err = chromedp.Run(ctx,
 		chromedp.Evaluate(`document.querySelector('a.next-page').click()`, nil),
-		chromedp.Sleep(time.Duration(rand.Intn(3)+2)*time.Second),
+		chromedp.Sleep(pageLoadDelay),
 	)
 	return err == nil
 }
 
-// Function to extract category links
-func extractCategoryLinks(ctx context.Context) []string {
-	var categoryLinks []string
-	err := chromedp.Run(ctx,
-		chromedp.Evaluate(`Array.from(document.querySelectorAll('a.category-link')).map(a => a.href)`, &categoryLinks),
-	)
-	if err != nil {
-		log.Println("Category extraction failed:", err)
-		return nil
+// --- Store Product URLs in Database ---
+func storeProductURLs(urls []string, domain string) {
+	for _, url := range urls {
+		// Ensure uniqueness before inserting into the database
+		var count int64
+		db.Model(&ProductURL{}).Where("url = ?", url).Count(&count)
+
+		if count == 0 { // Insert only if URL doesn't exist
+			db.Create(&ProductURL{Domain: domain, URL: url})
+			log.Printf("Stored product URL: %s", url)
+		} else {
+			log.Printf("Duplicate URL skipped: %s", url)
+		}
 	}
-	return categoryLinks
 }
 
-// Function to crawl product pages
+
+// --- Extract Product URLs from Page ---
+func extractProductURLs(htmlContent, baseURL string) []string {
+	matches := productURLPattern.FindAllString(htmlContent, -1)
+	uniqueURLs := make(map[string]bool)
+	var productURLs []string
+
+	for _, match := range matches {
+		fullURL := baseURL + match
+		if !uniqueURLs[fullURL] {
+			uniqueURLs[fullURL] = true
+			productURLs = append(productURLs, fullURL)
+		}
+	}
+	return productURLs
+}
+
+// --- Scrape Product Pages ---
 func scrapeWebsite(url string, resultChan chan<- CrawlResult, wg *sync.WaitGroup) {
 	defer wg.Done()
 
 	if isURLVisited(url) {
-		fmt.Println("Skipping already crawled URL:", url)
+		log.Printf("Skipping already crawled URL: %s", url)
 		return
 	}
 	markURLVisited(url)
 
-	// Set up Chrome with proxy for avoiding bans
-	// opts := append(chromedp.DefaultExecAllocatorOptions[:],
-	// 	chromedp.ProxyServer(proxyServer),
-	// )
 	opts := chromedp.DefaultExecAllocatorOptions[:]
 	allocCtx, cancel := chromedp.NewExecAllocator(context.Background(), opts...)
 	defer cancel()
+
 	ctx, cancel := chromedp.NewContext(allocCtx)
 	defer cancel()
 
-	// Increase timeout for loading large pages
-	ctx, cancel = context.WithTimeout(ctx, 30*time.Second)
+	ctx, cancel = context.WithTimeout(ctx, crawlTimeout)
 	defer cancel()
 
 	var htmlContent string
 	err := chromedp.Run(ctx,
 		chromedp.Navigate(url),
 		chromedp.WaitVisible(`body`, chromedp.ByQuery),
-		chromedp.ActionFunc(func(ctx context.Context) error {
-			infiniteScroll(ctx) // Handle lazy-loaded content
-			return nil
-		}),
 		chromedp.OuterHTML(`html`, &htmlContent),
 	)
 	if err != nil {
-		log.Println("Failed to load page:", url, err)
+		log.Printf("Failed to load page: %s | Error: %v", url, err)
 		return
 	}
+	//
+	log.Printf("Performing infinite scroll on: %s", url)
+	performInfiniteScroll(ctx)
+	chromedp.Run(ctx, chromedp.OuterHTML(`html`, &htmlContent))
+	//
 
-	// Extract category links
-	categoryLinks := extractCategoryLinks(ctx)
+	productURLs := extractProductURLs(htmlContent, url)
 
-	// Extract product URLs
-	matches := ProductURLRegex.FindAllString(htmlContent, -1)
-	uniqueURLs := make(map[string]bool)
-	var productURLs []string
+	//
+	storeProductURLs(productURLs, url)
+	//
 
-	for _, match := range matches {
-		fullURL := url + match
-		if !uniqueURLs[fullURL] {
-			uniqueURLs[fullURL] = true
-			productURLs = append(productURLs, fullURL)
-			db.Create(&ProductURL{Domain: url, URL: fullURL}) // Store in DB
-		}
-	}
-
-	// Handle pagination
-	for clickNextPage(ctx) {
-		chromedp.Run(ctx, chromedp.OuterHTML(`html`, &htmlContent))
-		matches := ProductURLRegex.FindAllString(htmlContent, -1)
-		for _, match := range matches {
-			fullURL := url + match
-			if !uniqueURLs[fullURL] {
-				uniqueURLs[fullURL] = true
-				productURLs = append(productURLs, fullURL)
-				db.Create(&ProductURL{Domain: url, URL: fullURL})
-			}
-		}
-	}
-
-	// Recursively crawl category pages
-	for _, catURL := range categoryLinks {
-		wg.Add(1)
-		go scrapeWebsite(catURL, resultChan, wg)
+	for _, url := range productURLs {
+		db.Create(&ProductURL{Domain: url, URL: url})
 	}
 
 	resultChan <- CrawlResult{Domain: url, URLs: productURLs}
 }
 
-// Save results to JSON file
+// --- Save Results to JSON File ---
 func saveResults(results []CrawlResult) {
 	file, err := os.Create("output.json")
 	if err != nil {
-		log.Fatal("Failed to create output file:", err)
+		log.Fatalf("Failed to create output file: %v", err)
 	}
 	defer file.Close()
 
-	jsonData, err := json.MarshalIndent(results, "", "  ")
-	if err != nil {
-		log.Fatal("Failed to marshal JSON:", err)
-	}
-
+	jsonData, _ := json.MarshalIndent(results, "", "  ")
 	file.Write(jsonData)
-	fmt.Println("Crawling complete. Results saved in output.json")
+	log.Println("Crawling complete. Results saved in output.json")
 }
 
-// Main function
+// --- Main Function ---
 func main() {
 	initDB()
+	initRedis()
 
 	domains := []string{
-		// "https://www.amazon.com/s?k=laptops",
-		// "https://www.flipkart.com/search?q=laptops",
-		// "https://www.ebay.com/sch/i.html?_nkw=laptops",
-		//"https://www.snapdeal.com/search?keyword=laptops",
-		"https://www.myntra.com/laptops",
+		"https://www.amazon.com/s?k=iphone",
+		"https://www.snapdeal.com/search?keyword=mobile",
+		"https://www.myntra.com/mobiles",
 	}
 
 	var results []CrawlResult

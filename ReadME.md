@@ -24,10 +24,22 @@ It handles **JavaScript-rendered pages, infinite scrolling, pagination, and URL 
 ## Installation & Setup
 **Install dependencies**:
 go mod tidy
+
 **Run redis**:
-docker run --name redis-server -d -p 6379:6379 redis
+docker run --name redis-server -d -p PORT:PORT redis
+
+**Run postgres server inside docker**:
+docker run --name postgres -e POSTGRES_USER="user_name" -e POSTGRES_PASSWORD="password" -e POSTGRES_DB="db_name" -d -p PORT:PORT postgres
+
 **Run crawler**:
 go run main.go
+
+**check Redis data**:
+docker exec -it redis redis-cli
+
+**check postgres data**:
+docker exec -it postgres psql -U user_name -d db_name
+
 **check extracted data in DB**
 SELECT * FROM product_urls LIMIT 10;
 
