@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36" version="26.0.16" pages="2">
+  <diagram name="Page-1" id="y1VPcpp46RtRkmRhEWHq">
+    <mxGraphModel dx="2750" dy="1665" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="&lt;strong data-start=&quot;318&quot; data-end=&quot;344&quot;&gt;E-Commerce Web Crawler&lt;/strong&gt;&lt;br data-start=&quot;344&quot; data-end=&quot;347&quot;&gt;&lt;em data-start=&quot;347&quot; data-end=&quot;402&quot;&gt;Automating product discovery across multiple websites&lt;/em&gt;&lt;br data-start=&quot;402&quot; data-end=&quot;405&quot;&gt;&lt;strong data-start=&quot;408&quot; data-end=&quot;425&quot;&gt;Technologies:&lt;/strong&gt; Golang, Chromedp, PostgreSQL, Redis, Docker, Railway.app" link="&lt;strong data-start=&quot;318&quot; data-end=&quot;344&quot;&gt;E-Commerce Web Crawler&lt;/strong&gt;&lt;br data-start=&quot;344&quot; data-end=&quot;347&quot;&gt;&lt;em data-start=&quot;347&quot; data-end=&quot;402&quot;&gt;Automating product discovery across multiple websites&lt;/em&gt;&lt;br data-start=&quot;402&quot; data-end=&quot;405&quot;&gt;������ &lt;strong data-start=&quot;408&quot; data-end=&quot;425&quot;&gt;Technologies:&lt;/strong&gt; Golang, Chromedp, PostgreSQL, Redis, Docker, Railway.app" id="Uu0GhZpgVCWZH_Pq3_DW-1">
+          <mxCell style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+            <mxGeometry x="-750" y="-100" width="460" height="70" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="&lt;p data-start=&quot;580&quot; data-end=&quot;898&quot;&gt;&lt;strong data-start=&quot;601&quot; data-end=&quot;614&quot;&gt;Objective&lt;/strong&gt; → Build a web crawler to extract &lt;strong data-start=&quot;648&quot; data-end=&quot;664&quot;&gt;product URLs&lt;/strong&gt; from multiple e-commerce websites.&lt;/p&gt;&lt;p data-start=&quot;580&quot; data-end=&quot;898&quot;&gt;&amp;nbsp;&lt;strong data-start=&quot;705&quot; data-end=&quot;721&quot;&gt;Key Features&lt;/strong&gt; → Handles &lt;strong data-start=&quot;732&quot; data-end=&quot;754&quot;&gt;infinite scrolling&lt;/strong&gt;, supports &lt;strong data-start=&quot;765&quot; data-end=&quot;785&quot;&gt;multiple domains&lt;/strong&gt;, stores results in &lt;strong data-start=&quot;805&quot; data-end=&quot;819&quot;&gt;PostgreSQL&lt;/strong&gt;.&lt;/p&gt;&lt;p data-start=&quot;580&quot; data-end=&quot;898&quot;&gt;&amp;nbsp;&lt;strong data-start=&quot;826&quot; data-end=&quot;840&quot;&gt;Deployment&lt;/strong&gt; → Runs &lt;strong data-start=&quot;848&quot; data-end=&quot;872&quot;&gt;locally using Docker&lt;/strong&gt; and &lt;strong data-start=&quot;877&quot; data-end=&quot;895&quot;&gt;on Railway.app&lt;/strong&gt;.&lt;/p&gt;&lt;p data-start=&quot;900&quot; data-end=&quot;1082&quot;&gt;&lt;strong data-start=&quot;1144&quot; data-end=&quot;1185&quot;&gt;What problem does this project solve?&lt;/strong&gt;&lt;br data-start=&quot;1185&quot; data-end=&quot;1188&quot;&gt;Manually finding product URLs across&amp;nbsp;&lt;strong data-start=&quot;1227&quot; data-end=&quot;1257&quot;&gt;different e-commerce sites&lt;/strong&gt;&amp;nbsp;is time-consuming.&lt;br data-start=&quot;1276&quot; data-end=&quot;1279&quot;&gt;Many sites use&amp;nbsp;&lt;strong data-start=&quot;1296&quot; data-end=&quot;1315&quot;&gt;dynamic loading&lt;/strong&gt;&amp;nbsp;or&amp;nbsp;&lt;strong data-start=&quot;1319&quot; data-end=&quot;1347&quot;&gt;different URL structures&lt;/strong&gt;.&lt;br data-start=&quot;1348&quot; data-end=&quot;1351&quot;&gt;We need an&amp;nbsp;&lt;strong data-start=&quot;1364&quot; data-end=&quot;1386&quot;&gt;automated solution&lt;/strong&gt;&amp;nbsp;that can handle various cases efficiently.&lt;/p&gt;&lt;p data-start=&quot;900&quot; data-end=&quot;1082&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p data-start=&quot;900&quot; data-end=&quot;1082&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p data-start=&quot;900&quot; data-end=&quot;1082&quot;&gt;&lt;strong data-start=&quot;1436&quot; data-end=&quot;1463&quot;&gt;Our Web Crawler Should:&lt;/strong&gt;&lt;br data-start=&quot;1463&quot; data-end=&quot;1466&quot;&gt;&amp;nbsp;Automatically discover product URLs&amp;nbsp;&amp;nbsp;Support multiple e-commerce platforms&amp;nbsp;&amp;nbsp;Handle&amp;nbsp;&lt;strong data-start=&quot;1557&quot; data-end=&quot;1592&quot;&gt;infinite scrolling &amp;amp; pagination&amp;nbsp;&lt;/strong&gt;&amp;nbsp;Avoid&amp;nbsp;&lt;strong data-start=&quot;1603&quot; data-end=&quot;1621&quot;&gt;duplicate URLs&lt;/strong&gt;&amp;nbsp;using&amp;nbsp;&lt;strong data-start=&quot;1628&quot; data-end=&quot;1637&quot;&gt;Redis&amp;nbsp;&lt;/strong&gt;&amp;nbsp;Store results in&amp;nbsp;&lt;strong data-start=&quot;1659&quot; data-end=&quot;1673&quot;&gt;PostgreSQL&lt;/strong&gt;&lt;/p&gt;&lt;p data-start=&quot;900&quot; data-end=&quot;1082&quot;&gt;&lt;br data-start=&quot;928&quot; data-end=&quot;931&quot;&gt;&lt;br data-start=&quot;1047&quot; data-end=&quot;1050&quot;&gt;&lt;br&gt;&lt;/p&gt;" link="&lt;p data-start=&quot;580&quot; data-end=&quot;898&quot;&gt;&lt;strong data-start=&quot;601&quot; data-end=&quot;614&quot;&gt;Objective&lt;/strong&gt; → Build a web crawler to extract &lt;strong data-start=&quot;648&quot; data-end=&quot;664&quot;&gt;product URLs&lt;/strong&gt; from multiple e-commerce websites.&lt;br data-start=&quot;699&quot; data-end=&quot;702&quot;&gt;������ &lt;strong data-start=&quot;705&quot; data-end=&quot;721&quot;&gt;Key Features&lt;/strong&gt; → Handles &lt;strong data-start=&quot;732&quot; data-end=&quot;754&quot;&gt;infinite scrolling&lt;/strong&gt;, supports &lt;strong data-start=&quot;765&quot; data-end=&quot;785&quot;&gt;multiple domains&lt;/strong&gt;, stores results in &lt;strong data-start=&quot;805&quot; data-end=&quot;819&quot;&gt;PostgreSQL&lt;/strong&gt;.&lt;br data-start=&quot;820&quot; data-end=&quot;823&quot;&gt;������ &lt;strong data-start=&quot;826&quot; data-end=&quot;840&quot;&gt;Deployment&lt;/strong&gt; → Runs &lt;strong data-start=&quot;848&quot; data-end=&quot;872&quot;&gt;locally using Docker&lt;/strong&gt; and &lt;strong data-start=&quot;877&quot; data-end=&quot;895&quot;&gt;on Railway.app&lt;/strong&gt;.&lt;/p&gt;&lt;p data-start=&quot;900&quot; data-end=&quot;1082&quot;&gt;������ &lt;strong data-start=&quot;903&quot; data-end=&quot;928&quot;&gt;Goal of this session:&lt;/strong&gt;&lt;br data-start=&quot;928&quot; data-end=&quot;931&quot;&gt;✅ Understand project requirements&lt;br data-start=&quot;964&quot; data-end=&quot;967&quot;&gt;✅ Explore the &lt;strong data-start=&quot;981&quot; data-end=&quot;999&quot;&gt;code structure&lt;/strong&gt;&lt;br data-start=&quot;999&quot; data-end=&quot;1002&quot;&gt;✅ Learn how to &lt;strong data-start=&quot;1017&quot; data-end=&quot;1047&quot;&gt;run the crawler in VS Code&lt;/strong&gt;&lt;br data-start=&quot;1047&quot; data-end=&quot;1050&quot;&gt;✅ Deploy it on &lt;strong data-start=&quot;1065&quot; data-end=&quot;1080&quot;&gt;Railway.app&lt;/strong&gt;&lt;/p&gt;" id="Uu0GhZpgVCWZH_Pq3_DW-3">
+          <mxCell style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+            <mxGeometry x="-785" y="-10" width="560" height="190" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="Uu0GhZpgVCWZH_Pq3_DW-4" value="&#xa;&lt;span style=&quot;color: rgb(255, 255, 255); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(27, 29, 30); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;&quot;&gt;Understand project requirements&lt;/span&gt;&lt;br style=&quot;forced-color-adjust: none; box-shadow: none !important; color: rgb(255, 255, 255); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(27, 29, 30); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot; data-start=&quot;964&quot; data-end=&quot;967&quot;&gt;&lt;span style=&quot;color: rgb(255, 255, 255); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(27, 29, 30); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;&quot;&gt;Explore the&lt;span&gt;&amp;nbsp;&lt;/span&gt;&lt;/span&gt;&lt;strong style=&quot;forced-color-adjust: none; box-shadow: none !important; color: rgb(255, 255, 255); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(27, 29, 30); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot; data-start=&quot;981&quot; data-end=&quot;999&quot;&gt;code structure&lt;/strong&gt;&lt;br style=&quot;forced-color-adjust: none; box-shadow: none !important; color: rgb(255, 255, 255); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(27, 29, 30); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot; data-start=&quot;999&quot; data-end=&quot;1002&quot;&gt;&lt;span style=&quot;color: rgb(255, 255, 255); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(27, 29, 30); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;&quot;&gt;check how to&lt;span&gt;&amp;nbsp;&lt;/span&gt;&lt;/span&gt;&lt;strong style=&quot;forced-color-adjust: none; box-shadow: none !important; color: rgb(255, 255, 255); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(27, 29, 30); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot; data-start=&quot;1017&quot; data-end=&quot;1047&quot;&gt;run the crawler in VS Code&lt;/strong&gt;&#xa;&#xa;" style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-630" y="290" width="250" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="Uu0GhZpgVCWZH_Pq3_DW-5" value="&lt;p data-end=&quot;1753&quot; data-start=&quot;1709&quot;&gt;&lt;strong data-end=&quot;1751&quot; data-start=&quot;1730&quot;&gt;Technologies Used&lt;/strong&gt;&lt;/p&gt;&lt;p data-end=&quot;1753&quot; data-start=&quot;1709&quot;&gt;&lt;strong style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;1766&quot; data-start=&quot;1756&quot;&gt;Golang&lt;/strong&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt; → For backend logic &amp;amp; concurrency\&lt;/span&gt;&lt;/p&gt;&lt;p data-end=&quot;1753&quot; data-start=&quot;1709&quot;&gt;&lt;strong style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;1817&quot; data-start=&quot;1805&quot;&gt;Chromedp&lt;/strong&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt; → For &lt;/span&gt;&lt;strong style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;1849&quot; data-start=&quot;1824&quot;&gt;headless web scraping&lt;/strong&gt;&lt;/p&gt;&lt;p data-end=&quot;1753&quot; data-start=&quot;1709&quot;&gt;&lt;strong style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;1868&quot; data-start=&quot;1854&quot;&gt;PostgreSQL&lt;/strong&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt; → For storing product URLs&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;/p&gt;&lt;p data-end=&quot;1753&quot; data-start=&quot;1709&quot;&gt;&lt;strong style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;1909&quot; data-start=&quot;1900&quot;&gt;Redis&lt;/strong&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt; → For caching visited URLs&lt;/span&gt;&lt;/p&gt;&lt;p data-end=&quot;1753&quot; data-start=&quot;1709&quot;&gt;&lt;strong style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;1951&quot; data-start=&quot;1941&quot;&gt;Docker&lt;/strong&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt; → For containerized setup&lt;/span&gt;&lt;/p&gt;&lt;p data-end=&quot;1753&quot; data-start=&quot;1709&quot;&gt;&lt;strong style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;1997&quot; data-start=&quot;1982&quot;&gt;Railway.app&lt;/strong&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt; → For cloud deployment&lt;/span&gt;&lt;/p&gt;&lt;p data-end=&quot;1753&quot; data-start=&quot;1709&quot;&gt;&lt;strong style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;2042&quot; data-start=&quot;2027&quot;&gt;&lt;br&gt;&lt;/strong&gt;&lt;/p&gt;&lt;p data-end=&quot;1753&quot; data-start=&quot;1709&quot;&gt;&lt;strong style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;2042&quot; data-start=&quot;2027&quot;&gt;&lt;br&gt;&lt;/strong&gt;&lt;/p&gt;&lt;p data-end=&quot;1753&quot; data-start=&quot;1709&quot;&gt;&lt;strong style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;2042&quot; data-start=&quot;2027&quot;&gt;Why Golang?&lt;/strong&gt;&lt;/p&gt;&lt;p data-end=&quot;2122&quot; data-start=&quot;2024&quot;&gt;✔ Fast execution&lt;br data-end=&quot;2064&quot; data-start=&quot;2061&quot;&gt;✔ Built-in concurrency&lt;br data-end=&quot;2089&quot; data-start=&quot;2086&quot;&gt;✔ Good for backend web scraping&lt;/p&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="-790" y="410" width="260" height="340" as="geometry" />
+        </mxCell>
+        <mxCell id="Uu0GhZpgVCWZH_Pq3_DW-7" value="&lt;p data-start=&quot;2185&quot; data-end=&quot;2426&quot;&gt;&lt;strong data-start=&quot;2185&quot; data-end=&quot;2199&quot;&gt;Input:&lt;/strong&gt; List of e-commerce domains&amp;nbsp;&lt;/p&gt;&lt;p data-start=&quot;2185&quot; data-end=&quot;2426&quot;&gt;&lt;strong style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-start=&quot;2232&quot; data-end=&quot;2248&quot;&gt;Crawler:&lt;/strong&gt;&lt;/p&gt;&lt;p data-start=&quot;2185&quot; data-end=&quot;2426&quot;&gt;Loads website dynamically&lt;/p&gt;&lt;p data-start=&quot;2185&quot; data-end=&quot;2426&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;Handles infinite scrolling&amp;nbsp;&lt;/span&gt;&lt;/p&gt;&lt;p data-start=&quot;2185&quot; data-end=&quot;2426&quot;&gt;Extracts product URLs&lt;/p&gt;&lt;p data-start=&quot;2185&quot; data-end=&quot;2426&quot;&gt;Stores results in PostgreSQL&lt;/p&gt;&lt;p data-start=&quot;2185&quot; data-end=&quot;2426&quot;&gt;&lt;strong style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-start=&quot;2383&quot; data-end=&quot;2398&quot;&gt;Output:&lt;/strong&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt; JSON file + DB Storage&lt;/span&gt;&lt;br data-start=&quot;2380&quot; data-end=&quot;2383&quot;&gt;&lt;/p&gt;&lt;p data-start=&quot;2428&quot; data-end=&quot;2518&quot;&gt;&lt;strong data-start=&quot;2431&quot; data-end=&quot;2448&quot;&gt;&lt;br&gt;&lt;/strong&gt;&lt;/p&gt;&lt;p data-start=&quot;2428&quot; data-end=&quot;2518&quot;&gt;&lt;strong data-start=&quot;2431&quot; data-end=&quot;2448&quot;&gt;How it Works:&lt;/strong&gt;&lt;br data-start=&quot;2448&quot; data-end=&quot;2451&quot;&gt;Scraper loads page → Extracts product URLs → Stores them in DB&lt;/p&gt;" style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-425" y="370" width="410" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="Uu0GhZpgVCWZH_Pq3_DW-11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="Uu0GhZpgVCWZH_Pq3_DW-9" target="Uu0GhZpgVCWZH_Pq3_DW-10" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Uu0GhZpgVCWZH_Pq3_DW-9" value="start main" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-520" y="840" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Uu0GhZpgVCWZH_Pq3_DW-13" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="Uu0GhZpgVCWZH_Pq3_DW-10" target="Uu0GhZpgVCWZH_Pq3_DW-12" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Uu0GhZpgVCWZH_Pq3_DW-10" value="Load env variables" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="-530" y="940" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Uu0GhZpgVCWZH_Pq3_DW-15" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="Uu0GhZpgVCWZH_Pq3_DW-12" target="Uu0GhZpgVCWZH_Pq3_DW-14" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Uu0GhZpgVCWZH_Pq3_DW-12" value="initialize DB &amp;amp; Redis client" style="rhombus;whiteSpace=wrap;html=1;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="-710" y="1010" width="140" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="Uu0GhZpgVCWZH_Pq3_DW-17" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="Uu0GhZpgVCWZH_Pq3_DW-14" target="Uu0GhZpgVCWZH_Pq3_DW-16" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Uu0GhZpgVCWZH_Pq3_DW-19" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="Uu0GhZpgVCWZH_Pq3_DW-14" target="Uu0GhZpgVCWZH_Pq3_DW-18" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Uu0GhZpgVCWZH_Pq3_DW-21" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="Uu0GhZpgVCWZH_Pq3_DW-14" target="Uu0GhZpgVCWZH_Pq3_DW-20" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Uu0GhZpgVCWZH_Pq3_DW-23" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="Uu0GhZpgVCWZH_Pq3_DW-16" target="Uu0GhZpgVCWZH_Pq3_DW-22" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Uu0GhZpgVCWZH_Pq3_DW-16" value="crawl domain 1,&lt;div&gt;extract product URLs using regex&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="-750" y="1280" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Uu0GhZpgVCWZH_Pq3_DW-25" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="Uu0GhZpgVCWZH_Pq3_DW-18" target="Uu0GhZpgVCWZH_Pq3_DW-24" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Uu0GhZpgVCWZH_Pq3_DW-18" value="crawl domain 2 ,&lt;div&gt;extract product URLs using regex&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-520" y="1280" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Uu0GhZpgVCWZH_Pq3_DW-27" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="Uu0GhZpgVCWZH_Pq3_DW-20" target="Uu0GhZpgVCWZH_Pq3_DW-26" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Uu0GhZpgVCWZH_Pq3_DW-20" value="crawl domain ..N,&lt;div&gt;extract product URLs using regex&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="-310" y="1280" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Uu0GhZpgVCWZH_Pq3_DW-30" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="Uu0GhZpgVCWZH_Pq3_DW-22" target="Uu0GhZpgVCWZH_Pq3_DW-28" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Uu0GhZpgVCWZH_Pq3_DW-22" value="check if url already exists in Redis cache" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="-750" y="1560" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Uu0GhZpgVCWZH_Pq3_DW-31" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="Uu0GhZpgVCWZH_Pq3_DW-24" target="Uu0GhZpgVCWZH_Pq3_DW-28" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Uu0GhZpgVCWZH_Pq3_DW-24" value="check if url already exists in Redis cache" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="-520" y="1560" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Uu0GhZpgVCWZH_Pq3_DW-32" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="Uu0GhZpgVCWZH_Pq3_DW-26" target="Uu0GhZpgVCWZH_Pq3_DW-28" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Uu0GhZpgVCWZH_Pq3_DW-26" value="check if url already exists in Redis cache" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="-300" y="1560" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Uu0GhZpgVCWZH_Pq3_DW-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="Uu0GhZpgVCWZH_Pq3_DW-28" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-760" y="1150" as="targetPoint" />
+            <mxPoint x="-729.96" y="1770" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="-730" y="1780" />
+              <mxPoint x="-730" y="1790" />
+              <mxPoint x="-760" y="1790" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Uu0GhZpgVCWZH_Pq3_DW-28" value="store unique URLs in DB, JSON file&amp;nbsp;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-718" y="1750" width="540" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Uu0GhZpgVCWZH_Pq3_DW-33" value=" For Each Website, Launch Chrome&amp;nbsp;Navigate to URL &amp;amp; Handle Lazy-Loading (JS) ,&amp;nbsp;Perform Infinite Scroll to Load More Content" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="-840" y="1230" width="700" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Uu0GhZpgVCWZH_Pq3_DW-35" value="" style="curved=1;endArrow=classic;html=1;rounded=0;" parent="1" source="Uu0GhZpgVCWZH_Pq3_DW-14" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-520" y="1230" as="sourcePoint" />
+            <mxPoint x="-470" y="1180" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Uu0GhZpgVCWZH_Pq3_DW-36" value="" style="curved=1;endArrow=classic;html=1;rounded=0;" parent="1" target="Uu0GhZpgVCWZH_Pq3_DW-14" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-520" y="1230" as="sourcePoint" />
+            <mxPoint x="-470" y="1180" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="-470" y="1230" />
+              <mxPoint x="-520" y="1180" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Uu0GhZpgVCWZH_Pq3_DW-14" value="Load domains from input file and start concurrent crawling" style="whiteSpace=wrap;html=1;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="-530" y="1170" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Uu0GhZpgVCWZH_Pq3_DW-37" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=0;" parent="1" target="Uu0GhZpgVCWZH_Pq3_DW-14" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-760" y="1150" as="sourcePoint" />
+            <mxPoint x="-670" y="1120" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="-560" y="1150" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Uu0GhZpgVCWZH_Pq3_DW-38" value="continue crawling until no page or product found" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="-890" y="1718" width="280" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="s5KMS7EqOrz541uuM70r" name="Page-2">
+    <mxGraphModel dx="1050" dy="565" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="TK2ooU5oeG7MPGdLHk4h-1" value="&lt;p data-start=&quot;345&quot; data-end=&quot;513&quot;&gt;Hey everyone, welcome to this video! Today, we’ll be building a &lt;strong data-start=&quot;434&quot; data-end=&quot;455&quot;&gt;web crawler in Go&lt;/strong&gt; that extracts product URLs from e-commerce websites. ������&lt;/p&gt;&lt;p data-start=&quot;515&quot; data-end=&quot;731&quot;&gt;We&#39;ll be covering:&lt;br data-start=&quot;533&quot; data-end=&quot;536&quot;&gt;✅ Crawling web pages using &lt;strong data-start=&quot;563&quot; data-end=&quot;572&quot;&gt;Colly&lt;/strong&gt;&lt;br data-start=&quot;572&quot; data-end=&quot;575&quot;&gt;✅ Handling &lt;strong data-start=&quot;586&quot; data-end=&quot;617&quot;&gt;JavaScript-rendered content&lt;/strong&gt; with &lt;strong data-start=&quot;623&quot; data-end=&quot;635&quot;&gt;ChromeDP&lt;/strong&gt;&lt;br data-start=&quot;635&quot; data-end=&quot;638&quot;&gt;✅ Storing visited URLs in &lt;strong data-start=&quot;664&quot; data-end=&quot;673&quot;&gt;Redis&lt;/strong&gt; for deduplication&lt;br data-start=&quot;691&quot; data-end=&quot;694&quot;&gt;✅ Saving results as a &lt;strong data-start=&quot;716&quot; data-end=&quot;729&quot;&gt;JSON file&lt;/strong&gt;&lt;/p&gt;&lt;p data-start=&quot;733&quot; data-end=&quot;871&quot;&gt;At the end of this video, you&#39;ll have a fully functional &lt;strong data-start=&quot;790&quot; data-end=&quot;805&quot;&gt;web crawler&lt;/strong&gt; that can extract and save e-commerce product URLs efficiently!&lt;/p&gt;" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="80" width="560" height="300" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
